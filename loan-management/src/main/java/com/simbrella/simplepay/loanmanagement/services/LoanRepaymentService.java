@@ -18,7 +18,7 @@ public class LoanRepaymentService {
 
     private final LoanRepaymentRepo repaymentRepo;
 
-    @KafkaListener(topics = "notification-completed")
+    @KafkaListener(topics = "transaction-completed")
     public void listen(TransactionEvent transactionEvent){
         LoanRepayment repayment = new LoanRepayment();
         double amountToPay = repayment.getSchedule().getAmount();

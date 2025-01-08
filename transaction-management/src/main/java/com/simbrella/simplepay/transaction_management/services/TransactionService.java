@@ -61,9 +61,14 @@ public class TransactionService {
                     .description(request.description())
                     .transactionTime(LocalDateTime.now())
                     .build();
+
             Transaction savedTransaction = transactionRepository.save(transaction);
 
-            TransactionEvent event = new TransactionEvent(savedTransaction.getId(), request.userId(), request.amount(), request.loanId(), request.description());
+            TransactionEvent event = new TransactionEvent();
+            event.setAmount(request.amount());
+            event.setDescription(request.description());
+            event.setUserId(request.userId());
+            event.setLoanId(request.loanId());
 
             kafkaTemplate.send("transaction-completed", event);
 

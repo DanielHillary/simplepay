@@ -109,4 +109,19 @@
         </dependency>
     </dependencies>
 
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.flywaydb</groupId>
+                <artifactId>flyway-maven-plugin</artifactId>
+                <version>10.20.1</version>
+                <configuration>
+                    <url>jdbc:mysql://localhost:3308/loan_service</url>
+                    <user>root</user>
+                    <password>Everbest_1</password>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+
 </project>

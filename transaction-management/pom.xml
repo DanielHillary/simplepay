@@ -50,7 +50,7 @@
         <dependency>
             <groupId>com.itextpdf</groupId>
             <artifactId>itext7-core</artifactId>
-            <version>7.2.5</version> <!-- Use the latest stable version -->
+            <version>8.0.5</version>
         </dependency>
 
         <dependency>
@@ -118,5 +118,22 @@
             <scope>test</scope>
         </dependency>
     </dependencies>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.flywaydb</groupId>
+                <artifactId>flyway-maven-plugin</artifactId>
+                <version>10.20.1</version>
+                <configuration>
+                    <url>jdbc:mysql://localhost:3307/transaction_service</url>
+                    <user>root</user>
+                    <password>Everbest_1</password>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+
+
 
 </project>

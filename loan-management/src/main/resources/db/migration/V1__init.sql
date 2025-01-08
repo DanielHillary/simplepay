@@ -1,4 +1,4 @@
-CREATE TABLE loan (
+CREATE TABLE IF NOT EXISTS loan (
     id BIGINT AUTO_INCREMENT PRIMARY KEY,
     loan_amount DECIMAL(19, 2),
     interest_rate DECIMAL(19, 2),
@@ -21,7 +21,7 @@ CREATE TABLE loan (
     updated_by VARCHAR(255)
 );
 
-CREATE TABLE loan_applications (
+CREATE TABLE IF NOT EXISTS loan_applications (
     id INT AUTO_INCREMENT PRIMARY KEY,
     loan_amount DECIMAL(19, 2),
     interest_rate DECIMAL(19, 2),
@@ -42,18 +42,18 @@ CREATE TABLE loan_applications (
     updated_by VARCHAR(255)
 );
 
-CREATE TABLE loan_repayment (
+CREATE TABLE IF NOT EXISTS loan_repayment (
     id BIGINT AUTO_INCREMENT PRIMARY KEY,
     amount_repaid DECIMAL(19, 2),
     loan_id BIGINT,
     remainder_amount DECIMAL(19, 2),
     repayment_time TIMESTAMP,
     is_full_payment BOOLEAN DEFAULT FALSE,
-    schedule_id BIGINT,
-    FOREIGN KEY (schedule_id) REFERENCES repayment_schedules(id)
+    schedule_id BIGINT
+--    FOREIGN KEY (schedule_id) REFERENCES repayment_schedule(id) ON DELETE SET NULL
 );
 
-CREATE TABLE repayment_schedules (
+CREATE TABLE IF NOT EXISTS repayment_schedule (
     id BIGINT AUTO_INCREMENT PRIMARY KEY,
     loan_id BIGINT,
     installment_number INT,
@@ -61,6 +61,5 @@ CREATE TABLE repayment_schedules (
     amount DECIMAL(19, 2),
     is_completed BOOLEAN DEFAULT FALSE,
     loan_repayment_id BIGINT,
-    FOREIGN KEY (loan_id) REFERENCES loans(id),
-    FOREIGN KEY (loan_repayment_id) REFERENCES loan_repayments(id)
+    FOREIGN KEY (loan_repayment_id) REFERENCES loan_repayment(id) ON DELETE SET NULL
 );

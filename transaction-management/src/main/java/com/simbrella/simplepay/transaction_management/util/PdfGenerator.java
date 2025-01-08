@@ -1,5 +1,7 @@
 package com.simbrella.simplepay.transaction_management.util;
 
+import com.itextpdf.kernel.font.PdfFont;
+import com.itextpdf.kernel.font.PdfFontFactory;
 import com.itextpdf.kernel.pdf.PdfWriter;
 import com.itextpdf.layout.Document;
 import com.itextpdf.layout.element.Paragraph;
@@ -26,11 +28,13 @@ public class PdfGenerator {
              PdfDocument pdf = new PdfDocument(writer);
              Document document = new Document(pdf)) {
 
+
+            PdfFont boldFont = PdfFontFactory.createFont("Helvetica-Bold");
             // Add Header
             document.add(new Paragraph("Transaction Statement")
                     .setTextAlignment(TextAlignment.CENTER)
                     .setFontSize(18)
-                    .setBold());
+                    .setFont(boldFont));
 
             document.add(new Paragraph("\n")); // Add some space
 
@@ -57,10 +61,11 @@ public class PdfGenerator {
             document.add(table);
 
             // Add Footer
+            PdfFont italicFont = PdfFontFactory.createFont("Helvetica-Oblique");
             document.add(new Paragraph("\n"));
             document.add(new Paragraph("Thank you for using our service!")
                     .setTextAlignment(TextAlignment.CENTER)
-                    .setItalic());
+                    .setFont(italicFont));
 
         } catch (Exception e) {
             loggingService.logError("Error generating transaction PDF", String.valueOf(transaction.getId()), e.getMessage());
